@@ -1,0 +1,39 @@
+services:
+  next_app:
+    container_name: next_app
+    image: nextapp:1.0.0
+    build:
+      context: ./FE
+      dockerfile: next.dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - go_app
+  go_app:
+    container_name: go_app
+    image: goapp:1.0.0
+    build:
+      context: ./BE
+      dockerfile: go.dockerfile
+    environment:
+      DATABASE_URL: "postgres://vannb:123@db:5432/TestDB?sslmode=disable"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:13
+    environment:
+      POSTGRES_USER: vannb
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: TestDB
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: {}
