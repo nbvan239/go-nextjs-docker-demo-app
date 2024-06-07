@@ -20,18 +20,18 @@ const UserInterface: React.FC<UserInterfaceProps> = ({ UserUI }) => {
 
   // Define styles based on the backend name
   const backgroundColors: { [key: string]: string } = {
-    go: "bg-cyan-500",
+    go: "bg-gray-800",
   };
 
   const buttonColors: { [key: string]: string } = {
-    go: "bg-cyan-700 hover:bg-blue-600",
+    go: "bg-gray-700 hover:bg-gray-600",
   };
 
   const bgColor =
-    backgroundColors[UserUI as keyof typeof backgroundColors] || "bg-gray-200";
+    backgroundColors[UserUI as keyof typeof backgroundColors] || "bg-gray-800";
   const btnColor =
     buttonColors[UserUI as keyof typeof buttonColors] ||
-    "bg-gray-500 hover:bg-gray-600";
+    "bg-gray-700 hover:bg-gray-600";
 
   // Fetch all users
   useEffect(() => {
@@ -96,94 +96,98 @@ const UserInterface: React.FC<UserInterfaceProps> = ({ UserUI }) => {
   };
 
   return (
-    <div
-      className={`user-interface ${bgColor} ${UserUI} w-full max-w-md p-4 my-4 rounded shadow`}
-    >
-      <img
-        src={`/${UserUI}logo.svg`}
-        alt={`${UserUI} Logo`}
-        className="w-20 h-20 mb-6 mx-auto"
-      />
-      <h2 className="text-xl font-bold text-center text-white mb-6">{`${
-        UserUI.charAt(0).toUpperCase() + UserUI.slice(1)
-      } Backend`}</h2>
-
-      {/* Create user */}
-      <form
-        onSubmit={createUser}
-        className="mb-6 p-4 bg-blue-100 rounded shadow"
+    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div
+        className={`user-interface ${bgColor} ${UserUI} w-full max-w-md mx-auto p-6 my-8 rounded-lg shadow-lg`}
       >
-        <input
-          placeholder="Name"
-          value={newUser.name}
-          onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-          className="mb-2 w-full p-2 border border-gray-300 rounded"
+        <img
+          src={`/${UserUI}logo.svg`}
+          alt={`${UserUI} Logo`}
+          className="w-20 h-20 mb-6 mx-auto"
         />
-        <input
-          placeholder="Email"
-          value={newUser.email}
-          onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-          className="mb-2 w-full p-2 border border-gray-300 rounded"
-        />
-        <button
-          type="submit"
-          className="w-full p-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-        >
-          Add User
-        </button>
-      </form>
+        <h2 className="text-2xl font-bold text-center text-white mb-6">{`${
+          UserUI.charAt(0).toUpperCase() + UserUI.slice(1)
+        } Backend`}</h2>
 
-      {/* Update user */}
-      <form
-        onSubmit={handleUpdateUser}
-        className="mb-6 p-4 bg-blue-100 rounded shadow"
-      >
-        <input
-          placeholder="User Id"
-          value={updateUser.id}
-          onChange={(e) => setUpdateUser({ ...updateUser, id: e.target.value })}
-          className="mb-2 w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          placeholder="New Name"
-          value={updateUser.name}
-          onChange={(e) =>
-            setUpdateUser({ ...updateUser, name: e.target.value })
-          }
-          className="mb-2 w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          placeholder="New Email"
-          value={updateUser.email}
-          onChange={(e) =>
-            setUpdateUser({ ...updateUser, email: e.target.value })
-          }
-          className="mb-2 w-full p-2 border border-gray-300 rounded"
-        />
-        <button
-          type="submit"
-          className="w-full p-2 text-white bg-green-500 rounded hover:bg-green-600"
+        {/* Create user */}
+        <form
+          onSubmit={createUser}
+          className="mb-6 p-4 bg-gray-700 rounded-lg shadow"
         >
-          Update User
-        </button>
-      </form>
-
-      {/* display users */}
-      <div className="space-y-4">
-        {users.map((user) => (
-          <div
-            key={user.id}
-            className="flex items-center justify-between bg-white p-4 rounded-lg shadow"
+          <input
+            placeholder="Name"
+            value={newUser.name}
+            onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+            className="mb-2 w-full p-2 border border-gray-600 rounded bg-gray-800 text-white"
+          />
+          <input
+            placeholder="Email"
+            value={newUser.email}
+            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+            className="mb-2 w-full p-2 border border-gray-600 rounded bg-gray-800 text-white"
+          />
+          <button
+            type="submit"
+            className="w-full p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
           >
-            <CardComponent card={user} />
-            <button
-              onClick={() => deleteUser(user.id)}
-              className={`${btnColor} text-white py-2 px-4 rounded`}
+            Add User
+          </button>
+        </form>
+
+        {/* Update user */}
+        <form
+          onSubmit={handleUpdateUser}
+          className="mb-6 p-4 bg-gray-700 rounded-lg shadow"
+        >
+          <input
+            placeholder="User Id"
+            value={updateUser.id}
+            onChange={(e) =>
+              setUpdateUser({ ...updateUser, id: e.target.value })
+            }
+            className="mb-2 w-full p-2 border border-gray-600 rounded bg-gray-800 text-white"
+          />
+          <input
+            placeholder="New Name"
+            value={updateUser.name}
+            onChange={(e) =>
+              setUpdateUser({ ...updateUser, name: e.target.value })
+            }
+            className="mb-2 w-full p-2 border border-gray-600 rounded bg-gray-800 text-white"
+          />
+          <input
+            placeholder="New Email"
+            value={updateUser.email}
+            onChange={(e) =>
+              setUpdateUser({ ...updateUser, email: e.target.value })
+            }
+            className="mb-2 w-full p-2 border border-gray-600 rounded bg-gray-800 text-white"
+          />
+          <button
+            type="submit"
+            className="w-full p-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
+          >
+            Update User
+          </button>
+        </form>
+
+        {/* Display users */}
+        <div className="space-y-4">
+          {users.map((user) => (
+            <div
+              key={user.id}
+              className="flex items-center justify-between bg-gray-700 p-4 rounded-lg shadow"
             >
-              Delete User
-            </button>
-          </div>
-        ))}
+              <CardComponent card={user} />
+              <button
+                onClick={() => deleteUser(user.id)}
+                className={`${btnColor} text-white py-2 px-4 rounded-lg`}
+              >
+                Delete User
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
